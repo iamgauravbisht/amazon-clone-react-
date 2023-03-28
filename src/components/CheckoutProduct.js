@@ -1,25 +1,20 @@
-import "./Product.css";
+import React from "react";
 import { useStateValue } from "./Context";
+import "./CheckoutProduct.css";
 
-function Product({ id, title, price, rating, image }) {
+function CheckoutProduct({ id, title, price, rating, image }) {
   const [, dispatch] = useStateValue();
 
-  const addToBasket = () => {
-    // dispatch the item into the data layer
+  const removefrombasket = () => {
+    //dispatch action to remove from basket
     dispatch({
-      type: "ADD_TO_BASKET",
-      item: {
-        id: id,
-        title: title,
-        image: image,
-        price: price,
-        rating: rating,
-      },
+      type: "REMOVE_FROM_BASKET",
+      id: id,
     });
   };
-
   return (
-    <div className="product">
+    <div className="checkout__product">
+      <img src={image} alt="" />
       <div className="product__info">
         <p>{title}</p>
         <p>
@@ -33,10 +28,10 @@ function Product({ id, title, price, rating, image }) {
               <p>🌟</p>
             ))}
         </p>
+        <button onClick={removefrombasket}>Remove from Basket</button>
       </div>
-      <img src={image} alt="" />
-      <button onClick={addToBasket}>Add to Basket</button>
     </div>
   );
 }
-export default Product;
+
+export default CheckoutProduct;
